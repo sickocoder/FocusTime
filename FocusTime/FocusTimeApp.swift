@@ -9,9 +9,22 @@ import SwiftUI
 
 @main
 struct FocusTimeApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+  @StateObject var appCountDown = CountdownConfigModel()
+  
+  var body: some Scene {
+    MenuBarExtra {
+      ContentView()
+        .environmentObject(appCountDown)
+    } label: {
+      if appCountDown.remainingTime != nil {
+        AppBarCountDownView()
+          .environmentObject(appCountDown)
+      } else {
+        Text("PoTi")
+      }
     }
+    .menuBarExtraStyle(.window)
+  }
 }
+
+
